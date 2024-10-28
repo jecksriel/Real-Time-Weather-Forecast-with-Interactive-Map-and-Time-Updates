@@ -1,0 +1,127 @@
+/* Optional: Customize default marker style */
+.leaflet-marker-icon {
+    background-color: #ff0000; /* Change color */
+    border-radius: 50%; /* Make it circular */
+    width: 30px; /* Set width */
+    height: 30px; /* Set height */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Add shadow */
+}
+
+#weatherCon {
+    display: inline-block;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.weather-info {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex: 1;
+    min-width: 200px;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: white;
+}
+
+.weather-info div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.weather-info h2 {
+    flex-basis: 100%;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.weather-info span {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 0.2em;
+}
+
+.weather-info p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+#forecast_map {
+    display: flex; /* Use flexbox for horizontal layout */
+    justify-content: space-between; /* Space out the child elements */
+    align-items: flex-start; /* Align items to the top */
+    margin-top: 1rem; /* Add some margin on top if needed */
+    border: 0px solid #ddd; /* Match your other styles */
+    border-radius: 5px; /* Match your other styles */
+    height: 90%;
+    backdrop-filter: blur(5px);
+}
+
+.map, .Forecast_days {
+    flex: 1; /* Allow both child elements to grow equally */
+    min-width: 200px; /* Minimum width for responsiveness */
+    padding: 0.5rem; /* Consistent padding */
+    border: 0px solid #ddd; /* Match your other styles */
+    border-radius: 5px; /* Match your other styles */
+    margin: 0 10px; /* Optional: add some horizontal spacing */
+    height: 100%;
+    z-index: 10;
+
+}
+
+#map, #Forecast_days {
+    height: 100%; /* Set a consistent height */
+    background-color: none; /* Optional: give a light background color for visibility */
+    border: 0px solid #ccc; /* Optional: add a border */
+    z-index: 10;
+}
+
+@media (max-width: 600px) {
+    .container {
+        flex-direction: column;
+        /* padding: 0.5rem; */
+    }
+
+    .weather-info, .map {
+        flex-basis: 100%;
+        padding: 0.5rem;
+    }
+
+    .weather-info h2 {
+        font-size: 1rem;
+    }
+
+    .weather-info span {
+        font-size: 0.9rem;
+    }
+
+    .weather-info p {
+        font-size: 0.5rem;
+    }
+
+    #map {
+        height: 100%;
+        margin-right: 4%;
+    }
+
+    #forecast_map {
+        flex-direction: column; /* Stack vertically on small screens */
+    }
+
+    .map, .Forecast_days {
+        flex-basis: 100%; /* Allow full width when stacked */
+        margin: 0; /* Reset margin */
+        width: 100%;
+    }
+    #Forecast_days {
+        margin-right: 4%;
+    }
+
+}

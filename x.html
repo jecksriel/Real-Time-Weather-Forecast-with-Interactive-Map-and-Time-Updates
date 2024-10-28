@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        /* Basic styles for the map container */
+        #map {
+            height: 100vh; /* Full height */
+            width: 100%;   /* Full width */
+        }
+
+        /* Optional: Customize default marker style */
+        .leaflet-marker-icon {
+            background-color: #ff0000; /* Change color */
+            border-radius: 50%; /* Make it circular */
+            width: 30px; /* Set width */
+            height: 30px; /* Set height */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Add shadow */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        let map;
+        let marker;
+
+        // Function to initialize the Leaflet map with GPS coordinates
+        function initializeMap(lat, lon) {
+            // Initialize the Leaflet map centered at the user's location
+            map = L.map('map').setView([lat, lon], 10);
+
+            // Add a tile layer to the map (e.g., OpenStreetMap tiles)
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // Add a draggable marker at the user's location
+            marker = L.marker([lat, lon], { draggable: true }).addTo(map)
+                .bindPopup('You can move me!<br>Latitude: ' + lat + '<br>Longitude: ' + lon)
+                .openPopup();
+
+            // Event listener to get new coordinates when the marker is moved
+            marker.on('dragend', function(e) {
+                const position = marker.getLatLng(); // Get new latitude and longitude
+                const newLat = position.lat;
+                const newLon = position.lng;
+                console.log(`New Latitude: ${newLat}, New Longitude: ${newLon}`); // Log the new coordinates
+
+                // Update the popup with the new coordinates
+                marker.setPopupContent('You can move me!<br>Latitude: ' + newLat + '<br>Longitude: ' + newLon).openPopup();
+            });
+        }
+
+        // Function to get user's location via GPS or fallback to IP address
+        function getLocation() {
+            if (navigator.geolocation) {
+                // Ask for user's permission to access their location
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude; // Get latitude
+                        const lon = position.coords.longitude; // Get longitude
+                        console.log(`Latitude: ${lat}, Longitude: ${lon}`); // Print lat and lon in console
+                        initializeMap(lat, lon); // Call the function to initialize the map
+                    }, 
+                    (error) => {
+                        console.warn(`ERROR(${error.code}): ${error.message}`);
+                        // If GPS fails, fallback to IP address
+                        fetchWeatherByIP();
+                    }
+                );
+            } else {
+                // Browser doesn't support geolocation, fallback to IP address
+                fetchWeatherByIP();
+            }
+        }
+
+        // Function to fetch weather based on user's IP address
+        function fetchWeatherByIP() {
+            fetch('https://ipapi.co/json/')
+                .then(response => response.json())
+                .then(data => {
+                    const lat = data.latitude;
+                    const lon = data.longitude;
+                    console.log(`Fallback - Latitude: ${lat}, Longitude: ${lon}`); // Print lat and lon in console
+                    initializeMap(lat, lon); // Initialize the map using IP-based coordinates
+                })
+                .catch(error => {
+                    console.error("Error fetching IP data:", error);
+                });
+        }
+
+        // Call getLocation to initiate the process for GPS-based retrieval
+        getLocation();
+    </script>
+</body>
+</html>

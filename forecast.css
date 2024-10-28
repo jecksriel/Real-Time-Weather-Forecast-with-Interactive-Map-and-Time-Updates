@@ -1,0 +1,96 @@
+body {
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+#wedertitle {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between title and form */
+    align-items: center; /* Aligns items vertically */
+    margin-bottom: 20px; /* Space below the title and input */
+}
+
+.input {
+    display: flex; /* Use flexbox to align items in the form */
+    justify-content: flex-end; /* Aligns input and button to the right */
+    gap: 10px; /* Space between input and button */
+}
+
+.inputValue {
+    padding: 8px; /* Add some padding for comfort */
+    border: 1px solid #ccc; /* Border styling */
+    border-radius: 4px; /* Rounded corners */
+}
+
+.button {
+    padding: 8px 12px; /* Button padding */
+    border: none; /* Remove default border */
+    background-color: #007bff; /* Button background color */
+    color: white; /* Button text color */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+.button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+#weatherTable {
+    margin-top: 20px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between; /* Space between elements */
+    align-items: center; /* Aligns items vertically */
+    margin-bottom: 20px; /* Space between header and table */
+}
+
+#forecastTitle {
+    margin: 0; /* Remove default margin */
+    font-size: 1.5em; /* Adjust font size as needed */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    color: white; /* Keep text color as white */
+}
+
+th, td {
+    border: 0px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black for even rows */
+}
+
+tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black for even rows */
+}
+
+tr:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black for odd rows */
+}
+
+tr:hover {
+    background-color: rgba(241, 241, 241, 0.5); /* Light gray on hover with opacity */
+}
+
+
+@media (max-width: 600px) {
+    th, td {
+        font-size: 14px;
+    }
+
+    #weatherStatus{
+        font-size: 10px;
+    }
+
+    .inputValue {
+        width: 70%;
+    }
+}
+
